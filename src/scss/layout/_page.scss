@@ -1,9 +1,18 @@
-@use '../core/variables' as vars;
+// // @use '../core/variables' as vars;
 
-body {
-    padding: 2rem;
-    height: 100vh;
-    background-image: url('/images/bg-adalab.png');
-    background-color: vars.$color-bg;
-    font-family: vars.$font-main;
+// body {
+//     padding: 2rem;
+//     height: 100vh;
+//     background-image: url('/images/bg-adalab.png');
+//     background-color: vars.$color-bg;
+//     font-family: vars.$font-main;
+// }
+
+.page {
+    padding: 1.25rem;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.page__header {
+    margin-bottom: 1.25rem;
 }

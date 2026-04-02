@@ -1,5 +1,13 @@
-* {
-  margin: 0;
-}
+// * {
+//   margin: 0;
+//   padding: 0;
+//   box-sizing: border-box;
+// }
 
-/* Aquí van tus estilos */
+// /* Aquí van tus estilos */
+
+@import 'core/reset';
+
+@import 'pages/index';
+
+@import 'layout/page';

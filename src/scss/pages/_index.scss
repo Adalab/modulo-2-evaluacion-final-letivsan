@@ -1,4 +1,26 @@
-.main__list {
-  padding-left: 2rem;
-  padding-bottom: 20px;
+// .main__list {
+//   padding-left: 2rem;
+//   padding-bottom: 20px;
+// }
+
+.search {
+  margin-bottom: 2rem;
+}
+
+.search__label {
+  display: block;
+  margin-bottom: 0.6rem;
+}
+
+.search__input {
+  padding: 0.6rem;
+}
+
+.search__button {
+  padding: 0.5rem 0.8rem;
+  cursor: pointer;
+}
+
+.series__list {
+  list-style: none;
 }

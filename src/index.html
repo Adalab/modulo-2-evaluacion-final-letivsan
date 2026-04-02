@@ -10,8 +10,26 @@
   <link rel="icon" href="/images/faviconfilms.png" />
 </head>
 
-<body>
-  Escribe aquí tu contenido
+<body class="page">
+  <header class="page__header">
+    <h1 class="page__title">Buscador de series</h1>
+  </header>
+
+  <main class="page__main">
+    <section class="search">
+      <form class="search__form">
+        <label class="search__label" for="searchSeries">Busca tu serie</label>
+        <input id="searchSeries" class= "search__input js_searchInput" type="text" placeholder="Ej. Gilmore "/>
+        <button class="search__button js_searchButton">Buscar</button>
+      </form>
+    </section>
+
+    <section class="series">
+      <h2 class="series__heading">Resultados de búsqueda</h2>
+      <ul class="series__list js_seriesList"></ul>
+    </section>
+  </main>
+<script src="./js/main.js"></script>
 </body>
 
 </html>
