@@ -44,6 +44,13 @@ function getSeriesFromApi() {
         .then((data) => {
             console.log('Datos que devuelve la API:', data);
 
+            console.table(
+                data.map((item) => ({
+                    name:item.show.name,
+                    hasImage: item.show.image !== null
+                }))
+            );
+
             seriesData = data;
             console.log ('seriesData actualizado', seriesData);
 
