@@ -3,22 +3,40 @@
 const searchInput = document.querySelector('.js_searchInput');
 const searchButton = document.querySelector('.js_searchButton');
 const seriesList = document.querySelector('.js_seriesList');
+const favoriteList = document.querySelector('.js_favoriteList');
 
 /*SECCIÓN DE DATOS*/
 let seriesData = [];
+let favoriteSeries = [];
 const defaultImage = 'https://placehold.co/210x295/f5f5f5/666666/?text=TV';
 
 /*SECCIÓN DE FUNCIONES*/
+//Saber si una serie está ya en favoritas
+function isFavorite(seriesId) {
+    const favoriteFound = favoriteSeries.find(
+        (eachFavorite) => eachFavorite.id === seriesId
+    );
+    return favoriteFound !== undefined;
+}
+
+
 function renderSeries () {
     let html = '';
 
     for (const eachSeries of seriesData) {
+        const seriesId = eachSeries.show.id;
         const seriesName = eachSeries.show.name;
 
         let seriesImage = defaultImage;
 
         if (eachSeries.show.image && eachSeries.show.image.medium) {
             seriesImage = eachSeries.show.image.medium;
+        }
+
+        let favoriteClass = '';
+
+        if (isFavorite(seriesId)) {
+            favoriteClass = 'series__item--favorite';
         }
     
         html += `<li class="series__item">
@@ -27,6 +45,8 @@ function renderSeries () {
     }
     
     seriesList.innerHTML = html;
+
+    addEventListenerToSeries();
 }
 
 
