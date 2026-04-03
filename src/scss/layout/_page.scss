@@ -1,18 +1,31 @@
-// // @use '../core/variables' as vars;
-
-// body {
-//     padding: 2rem;
-//     height: 100vh;
-//     background-image: url('/images/bg-adalab.png');
-//     background-color: vars.$color-bg;
-//     font-family: vars.$font-main;
-// }
+/* Estructura general */
 
 .page {
-    padding: 1.25rem;
-    font-family: Arial, Helvetica, sans-serif;
+    min-height: 100vh;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-text);
 }
 
+/* Cabecera */
 .page__header {
-    margin-bottom: 1.25rem;
+    padding: var(--space-lg) var(--space-md);
+    background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+    box-shadow: var(--shadow-soft);
+}
+
+/* Título principal */
+.page__title {
+    max-width: var(--container-width);
+    margin: 0 auto;
+    color: var(--color-white);
+    font-size: 2rem;
+    text-align: center;
+}
+
+/* Contenido principal */
+.page__main {
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: var(--space-lg) var(--space-md) var(--space-xl);
 }

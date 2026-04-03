@@ -1,5 +1,31 @@
+/* Reset general */
+
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
+
+/* Imágenes */
+img {
+  display: block;
+  width: 100%;
+}
+
+/* Listas */
+ul {
+  list-style: none;
+}
+
+/* Botones e inputs*/
+button {
+  font: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+input {
+  font: inherit;
+}
+
