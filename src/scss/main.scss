@@ -6,8 +6,6 @@
 
 // /* Aquí van tus estilos */
 
-@import 'core/reset';
-
-@import 'pages/index';
-
-@import 'layout/page';
+@use 'core/reset';
+@use 'pages/index';
+@use 'layout/page';
