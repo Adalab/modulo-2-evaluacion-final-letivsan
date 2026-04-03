@@ -33,16 +33,22 @@
         </form>
       </section>
 
-      <div class="content">
+      <section class="results">
         <section class="favorites">
-          <h2 class="favorites__heading">Series favoritas</h2>
+          <div class="favorites__header">
+            <h2 class="favorites__heading">Series favoritas</h2>
+            <button class="favorites__reset js_resetFavorites" type="button">
+              Borrar series favoritas
+            </button>
+          </div>
+          
+          <ul class="favorites__list js_favoritesList"></ul>
+        </section>
+        
+        <section class="series">
+          <h2 class="series__heading">Resultados de búsqueda</h2>
           <ul class="series__list js_seriesList"></ul>
         </section>
-      </div>
-
-      <section class="series">
-        <h2 class="series__heading">Resultados de búsqueda</h2>
-        <ul class="series__list js_seriesList"></ul>
       </section>
     </main>
 
