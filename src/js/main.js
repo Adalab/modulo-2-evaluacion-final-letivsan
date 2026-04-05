@@ -79,12 +79,23 @@ function renderFavorites() {
         ? eachFavorite.image.medium : defaultImage;
 
          html += `<li class="favorites__item">
+         <button class="favorites__delete js_deleteFavorite" data-id="${eachFavorite.id}" type="button">x</button>
          <img class="favorites__image" src="${favoriteImage}" alt="${eachFavorite.name}"/>
          <h3 class= "favorites__title">${eachFavorite.name}</h3></li>`;
         }
     }
 
     favoritesList.innerHTML = html;
+    //Después de pintar las favoritas, evento de botones x
+    addEventListenersToDeleteButtons();
+}
+
+//Escuchar clicks en la x de cada fav
+function addEventListenersToDeleteButtons () {
+    const deleteButtons = document.querySelectorAll('.js_deleteFavorite');
+    for (const eachButton of deleteButtons) {
+        eachButton.addEventListener('click', handleClickDeleteFavorite);
+    }
 }
 
 function addEventListenersToSeries() {
@@ -150,18 +161,33 @@ function handleClickSeries(ev) {
 
     console.log('Estado actual de favoritos', favoriteSeries);
 
-
     saveFavoritesInLocalStorage();
     renderFavorites();
     renderSeries();
     }
 
+    //Borrar fav concreta desde la x
+    function handleClickDeleteFavorite (ev) {
+        const clickedFavoriteId = parseInt(ev.currentTarget.dataset.id);
+
+        const favoriteIndex = favoriteSeries.findIndex(
+            (eachFavorite) => eachFavorite.id === clickedFavoriteId);
+
+        if (favoriteIndex !== -1) {
+            favoriteSeries.splice(favoriteIndex, 1);
+        }
+
+        saveFavoritesInLocalStorage();
+        renderFavorites();
+        renderSeries();
+    }
+
     function handleClickResetFavorites() {
         favoriteSeries = [];
         renderFavorites();
-        renderSeries();
-        //Guardar array vacío en LocalStorage
+        //Guardar array vacío en localStorage
         saveFavoritesInLocalStorage();
+         renderSeries();
     }
 
 /*SECCIÓN DE ACCIONES AL CARGAR LA PÁGINA - EJECUCCIÓN*/
