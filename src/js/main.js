@@ -22,10 +22,27 @@ function isFavorite(seriesId) {
     return foundFavorite !== undefined;
 }
 
+//Guardar favs en localStorage
+function saveFavoritesInLocalStorage() {
+    localStorage.setItem('favoriteSeries', JSON.stringify(favoriteSeries));
+    console.log('Lo que hay en localStorage ahora', localStorage.getItem('favoriteSeries'));
+}
+
+//Cargar favs desde localStorage
+function loadFavoritesFromLocalStorage() {
+    const savedFavorites = localStorage.getItem('favoriteSeries');
+
+    if (savedFavorites !== null) {
+        favoriteSeries = JSON.parse(savedFavorites);
+        console.log ('Favoritos cargados', favoriteSeries);
+    } else {
+        console.log ('No hay favoritos guardados');
+    }
+}
+
 function renderSeries () {
     console.table(seriesData);
     let html = '';
-
 //recorremos array de series
     for (const eachSeries of seriesData) {
         const seriesId = eachSeries.show.id;
@@ -131,6 +148,10 @@ function handleClickSeries(ev) {
         favoriteSeries.splice(favoriteIndex, 1);
     }
 
+    console.log('Estado actual de favoritos', favoriteSeries);
+
+
+    saveFavoritesInLocalStorage();
     renderFavorites();
     renderSeries();
     }
@@ -138,10 +159,13 @@ function handleClickSeries(ev) {
     function handleClickResetFavorites() {
         favoriteSeries = [];
         renderFavorites();
-        renderSeries;
+        renderSeries();
+        //Guardar array vacío en LocalStorage
+        saveFavoritesInLocalStorage();
     }
 
 /*SECCIÓN DE ACCIONES AL CARGAR LA PÁGINA - EJECUCCIÓN*/
+loadFavoritesFromLocalStorage();
 searchButton.addEventListener('click', handleClickSearch);
 resetFavoritesButton.addEventListener('click', handleClickResetFavorites);
 renderFavorites();
