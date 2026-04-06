@@ -38,7 +38,7 @@ function loadFavoritesFromLocalStorage() {
 }
 
 //Dibuja en la pantalla los resultados de la búsqueda actual
-function renderSeries () {
+function renderSeries() {
     let html = '';
 
     if (seriesData.length === 0) {
@@ -66,7 +66,6 @@ function renderSeries () {
 //Dibuja en pantalla la columna de favoritas
 function renderFavorites() {
     let html = '';
-
     if (favoriteSeries.length === 0) {
         html = '<li class="favorites__empty">Todavía no tienes series favoritas</li>';
     } else {
@@ -94,7 +93,7 @@ function addEventListenersToSeries() {
     }
 }
 
-function addEventListenersToDeleteButtons () {
+function addEventListenersToDeleteButtons() {
     const deleteButtons = document.querySelectorAll('.js_deleteFavorite');
     for (const eachButton of deleteButtons) {
         eachButton.addEventListener('click', handleClickDeleteFavorite);
@@ -125,8 +124,8 @@ function getSeriesFromApi() {
     }
     
 /*SECCIÓN DE FUNCIONES DE EVENTOS*/
-function handleSubmitSearch (ev) {
-    ev.preventDefault ();
+function handleSubmitSearch(ev) {
+    ev.preventDefault();
     getSeriesFromApi();
 }
 
@@ -158,7 +157,7 @@ function handleClickSeries(ev) {
     }
     
     //Elimina una favorita concreta desde la columna izquierda
-    function handleClickDeleteFavorite (ev) {
+    function handleClickDeleteFavorite(ev) {
         const clickedFavoriteId = parseInt(ev.currentTarget.dataset.id);
 
         favoriteSeries = favoriteSeries.filter(
