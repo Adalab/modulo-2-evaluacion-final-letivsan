@@ -48,8 +48,8 @@
 }
 
 /*Focus para navegación con teclado*/
-button:focus,
-input:focus {
+button:focus-visible,
+input:focus-visible {
     outline: 2px solid var(--color-primary);
 }
 
@@ -177,18 +177,29 @@ input:focus {
 
 .series__item {
     width: 100%;
-    padding: var(--space-sm);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
     background-color: #fcfafe;
-    cursor: pointer;
     transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.series__button {
+    display: block;
+    width: 100%;
+    padding: var(--space-sm);
+    color: inherit;
+    text-align: left;
 }
 
 .series__item:hover {
     transform: translateY(-2px);
     border-color: var(--color-primary);
     box-shadow: var(--shadow-soft);
+}
+
+.series__button:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
 }
 
 /* Estado favorito */

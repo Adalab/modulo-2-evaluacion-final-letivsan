@@ -2,7 +2,6 @@
 /*SECCIÓN DE QUERY SELECTORS*/
 const searchForm = document.querySelector('.js_searchForm');
 const searchInput = document.querySelector('.js_searchInput');
-const searchButton = document.querySelector('.js_searchButton');
 const seriesList = document.querySelector('.js_seriesList');
 const favoritesList = document.querySelector('.js_favoritesList');
 const resetFavoritesButton = document.querySelector('.js_resetFavorites');
@@ -49,7 +48,7 @@ function renderSeries () {
     let html = '';
 
     if (seriesData.length === 0) {
-        html = '<li class="series__messsage">No hay resultados</li>';
+        html = '<li class="series__message">No hay resultados</li>';
     } else {
         //recorremos array de series
         for (const eachSeries of seriesData) {
@@ -59,12 +58,14 @@ function renderSeries () {
              const favoriteClass = isFavorite(seriesId) ? 'series__item--favorite' : '';
              
              html += `
-             <li class="series__item js_seriesItem ${favoriteClass}" data-id="${seriesId}">
-        <img class="series__image" src="${seriesImage}" alt="${seriesName}"/>
-        <h3 class="series__title">${seriesName}</h3></li>`;
+             <li class="series__item ${favoriteClass}">
+             <button class="series__button js_seriesItem" type="button" data-id="${seriesId}">
+             <img class="series__image" src="${seriesImage}" alt=""/>
+             <span class="series__title">${seriesName}</span>
+             </button>
+             </li>`;
     }
 }
-
     //Pintar todo el HTML
     seriesList.innerHTML = html;
     // console.log ('HTML generado para las series', html);
@@ -85,8 +86,8 @@ function renderFavorites() {
          type="button"
          aria-label="Eliminar ${eachFavorite.name} de favoritas" title="Eliminar de favoritas">
          x</button>
-         <img class="favorites__image" src="${favoriteImage}" alt="${eachFavorite.name}"/>
-         <h3 class= "favorites__title">${eachFavorite.name}</h3></li>`;
+         <img class="favorites__image" src="${favoriteImage}" alt=""/>
+         <h3 class="favorites__title">${eachFavorite.name}</h3></li>`;
         }
     }
 
@@ -173,11 +174,9 @@ function handleClickSeries(ev) {
     function handleClickDeleteFavorite (ev) {
         const clickedFavoriteId = parseInt(ev.currentTarget.dataset.id);
 
-        const updatedFavorites = favoriteSeries.filter(
+        favoriteSeries = favoriteSeries.filter(
             (eachFavorite) => eachFavorite.id !== clickedFavoriteId);
-        
-        favoriteSeries = updatedFavorites;
-
+            
         saveFavoritesInLocalStorage();
         renderFavorites();
         renderSeries();
@@ -196,5 +195,4 @@ renderFavorites();
 
 searchForm.addEventListener('submit', handleSubmitSearch);
 resetFavoritesButton.addEventListener('click', handleClickResetFavorites);
-;
 
