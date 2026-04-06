@@ -16,41 +16,34 @@ const localStorageKey = 'favoriteSeries';
 function getImageUrl(image) {
     return image && image.medium ? image.medium : defaultImage;
 }
-//Saber si una serie está ya en favoritas
+
 function isFavorite(seriesId) {
     const foundFavorite = favoriteSeries.find(
         (eachFavorite) => eachFavorite.id === seriesId
     );
-    // console.log('Es fav¿?', seriesId, foundFavorite);
     return foundFavorite !== undefined;
 }
 
-//Guardar favs en localStorage
 function saveFavoritesInLocalStorage() {
     localStorage.setItem(localStorageKey, JSON.stringify(favoriteSeries));
-    // console.log('Lo que hay en localStorage ahora', localStorage.getItem('favoriteSeries'));
 }
 
-//Cargar favs desde localStorage
+//Carga los favoritos guardados cuando arranca la página
 function loadFavoritesFromLocalStorage() {
     const savedFavorites = localStorage.getItem(localStorageKey);
 
     if (savedFavorites !== null) {
         favoriteSeries = JSON.parse(savedFavorites);
-    //     console.log ('Favoritos cargados', favoriteSeries);
-    // } else {
-    //     console.log ('No hay favoritos guardados');
     }
 }
 
+//Dibuja en la pantalla los resultados de la búsqueda actual
 function renderSeries () {
-    // console.table(seriesData);
     let html = '';
 
     if (seriesData.length === 0) {
         html = '<li class="series__message">No hay resultados</li>';
     } else {
-        //recorremos array de series
         for (const eachSeries of seriesData) {
              const seriesId = eachSeries.show.id;
              const seriesName = eachSeries.show.name;
@@ -60,19 +53,17 @@ function renderSeries () {
              html += `
              <li class="series__item ${favoriteClass}">
              <button class="series__button js_seriesItem" type="button" data-id="${seriesId}">
-             <img class="series__image" src="${seriesImage}" alt=""/>
+             <img class="series__image" src="${seriesImage}" alt="${seriesName}"/>
              <span class="series__title">${seriesName}</span>
              </button>
              </li>`;
     }
 }
-    //Pintar todo el HTML
     seriesList.innerHTML = html;
-    // console.log ('HTML generado para las series', html);
-    //Volver a añadir los eventos a cada serie
     addEventListenersToSeries();
 }
 
+//Dibuja en pantalla la columna de favoritas
 function renderFavorites() {
     let html = '';
 
@@ -86,17 +77,15 @@ function renderFavorites() {
          type="button"
          aria-label="Eliminar ${eachFavorite.name} de favoritas" title="Eliminar de favoritas">
          x</button>
-         <img class="favorites__image" src="${favoriteImage}" alt=""/>
+         <img class="favorites__image" src="${favoriteImage}" alt="${eachFavorite.name}"/>
          <h3 class="favorites__title">${eachFavorite.name}</h3></li>`;
         }
     }
 
     favoritesList.innerHTML = html;
-    //Después de pintar las favoritas, evento de botones x
     addEventListenersToDeleteButtons();
 }
 
-//Escuchar clicks en la x de cada fav
 function addEventListenersToSeries() {
     const seriesItems = document.querySelectorAll ('.js_seriesItem');
 
@@ -112,9 +101,9 @@ function addEventListenersToDeleteButtons () {
     }
 }
 
+//Busca series en la API según el texto escrito en el input
 function getSeriesFromApi() {
     const searchText = searchInput.value.trim();
-    // console.log('Texto buscado', searchText);
 
     if (searchText === '') {
         seriesData = [];
@@ -129,6 +118,7 @@ function getSeriesFromApi() {
             renderSeries();
         })
         .catch(() => {
+            seriesData = [];
             seriesList.innerHTML =
             '<li class="series__message">Ha ocurrido un error al buscar las series</li>';
         });
@@ -140,17 +130,15 @@ function handleSubmitSearch (ev) {
     getSeriesFromApi();
 }
 
+//Añade o quita una serie de favoritas al hacer click
 function handleClickSeries(ev) {
     const clickedSeriesId = parseInt(ev.currentTarget.dataset.id);
-    // console.log('serie clicada en id:', clickedSeriesId);
 
     const clickedSeries = seriesData.find(
        (eachSeries) => eachSeries.show.id === clickedSeriesId);
-    //    console.dir(clickedSeries);
 
     const favoriteIndex = favoriteSeries.findIndex(
         (eachFavorite) => eachFavorite.id === clickedSeriesId);
-        // console.log('índice en favoritos', favoriteIndex);
 
     if (favoriteIndex === -1) {
         const favoriteObject = {
@@ -164,13 +152,12 @@ function handleClickSeries(ev) {
         favoriteSeries.splice(favoriteIndex, 1);
     }
 
-    // console.log('Estado actual de favoritos', favoriteSeries);
     saveFavoritesInLocalStorage();
     renderFavorites();
     renderSeries();
     }
-
-    //Borrar fav concreta desde la x
+    
+    //Elimina una favorita concreta desde la columna izquierda
     function handleClickDeleteFavorite (ev) {
         const clickedFavoriteId = parseInt(ev.currentTarget.dataset.id);
 
@@ -181,7 +168,8 @@ function handleClickSeries(ev) {
         renderFavorites();
         renderSeries();
     }
-
+    
+    //Borra todas las favoritas
     function handleClickResetFavorites() {
         favoriteSeries = [];
         saveFavoritesInLocalStorage();
@@ -189,7 +177,7 @@ function handleClickSeries(ev) {
         renderSeries();
     }
 
-/*SECCIÓN DE ACCIONES AL CARGAR LA PÁGINA - EJECUCCIÓN*/
+/*SECCIÓN DE ACCIONES AL CARGAR LA PÁGINA - EJECUCIÓN*/
 loadFavoritesFromLocalStorage();
 renderFavorites();
 
